@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Welcome, {{ current_user.username }}</h1>
+<div class="card">
+  <h2>Quick scan</h2>
+  <p class="text-dim">Check a website's security headers, TLS certificate, and HTTPS enforcement.</p>
+  <a class="btn" href="{{ url_for('scan.new_scan') }}">Run a new scan</a>
+</div>
+
+<div class="card">
+  <h2>Recent scans</h2>
+  {% if recent_scans %}
+    <table>
+      <tr><th>Target</th><th>Risk</th><th>Score</th><th>When</th><th></th></tr>
+      {% for scan in recent_scans %}
+      <tr>
+        <td>{{ scan.target }}</td>
+        <td><span class="badge badge-{{ scan.risk_level|lower }}">{{ scan.risk_level }}</span></td>
+        <td>{{ scan.risk_score }}/100</td>
+        <td>{{ scan.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+        <td><a href="{{ url_for('scan.scan_detail', scan_id=scan.id) }}">View</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    <p style="margin-top:14px;"><a href="{{ url_for('scan.scan_history') }}">View full history →</a></p>
+  {% else %}
+    <p class="text-dim">No scans yet — run your first one above.</p>
+  {% endif %}
+</div>
+{% endblock %}

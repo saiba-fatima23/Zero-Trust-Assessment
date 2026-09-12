@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}New Scan{% endblock %}
+{% block content %}
+<div class="card" style="max-width:520px;margin:0 auto;">
+  <h2>Run a vulnerability scan</h2>
+  <p class="text-dim">Enter a public website URL or domain. Private, internal, and loopback addresses are blocked.</p>
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="field">
+      {{ form.target.label }}
+      {{ form.target(type_="text", placeholder="example.com") }}
+      {% for e in form.target.errors %}<div class="errors">{{ e }}</div>{% endfor %}
+    </div>
+    {{ form.submit(class_="btn") }}
+  </form>
+</div>
+{% endblock %}

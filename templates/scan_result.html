@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Scan Result{% endblock %}
+{% block content %}
+<h1>Scan report</h1>
+<div class="card" style="text-align:center;">
+  <div class="score-circle">{{ scan.risk_score }}</div>
+  <span class="badge badge-{{ scan.risk_level|lower }}">{{ scan.risk_level }} risk</span>
+  <p class="text-dim" style="margin-top:12px;">{{ scan.target }} — scanned {{ scan.created_at.strftime("%Y-%m-%d %H:%M UTC") }}</p>
+</div>
+
+<div class="card">
+  <h2>Findings ({{ findings|length }})</h2>
+  {% if findings %}
+    {% for f in findings %}
+      <div class="finding {{ f.severity }}">
+        <strong>{{ f.check }}</strong>
+        <span class="badge badge-{{ f.severity }}" style="margin-left:8px;">{{ f.severity }}</span>
+        <p class="text-dim" style="margin:6px 0 0;">{{ f.detail }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p class="text-dim">No issues found for the checks performed. Nice work.</p>
+  {% endif %}
+</div>
+
+<a class="btn btn-secondary" href="{{ url_for('scan.new_scan') }}">Run another scan</a>
+{% endblock %}

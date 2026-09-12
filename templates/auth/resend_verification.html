@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Resend Verification{% endblock %}
+{% block content %}
+<div class="card" style="max-width:420px;margin:0 auto;">
+  <h2>Resend verification email</h2>
+  <form method="POST" novalidate>
+    {{ form.hidden_tag() }}
+    <div class="field">
+      {{ form.email.label }}
+      {{ form.email(type_="email") }}
+      {% for e in form.email.errors %}<div class="errors">{{ e }}</div>{% endfor %}
+    </div>
+    {{ form.submit(class_="btn") }}
+  </form>
+</div>
+{% endblock %}

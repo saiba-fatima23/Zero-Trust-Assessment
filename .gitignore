@@ -1,0 +1,42 @@
+# Virtual environment
+venv/
+.venv/
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Environment variables
+.env
+
+# Flask
+instance/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Secrets
+*.pem
+*.key
+credentials.json
+token.json
+client_secret*.json
+
+# Logs
+*.log
+
+# Generated reports
+generated_reports/
+
+# Uploads
+uploads/

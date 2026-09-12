@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Scan History{% endblock %}
+{% block content %}
+<h1>Scan history</h1>
+<div class="card">
+  {% if scans %}
+    <table>
+      <tr><th>Target</th><th>Risk</th><th>Score</th><th>When</th><th></th></tr>
+      {% for scan in scans %}
+      <tr>
+        <td>{{ scan.target }}</td>
+        <td><span class="badge badge-{{ scan.risk_level|lower }}">{{ scan.risk_level }}</span></td>
+        <td>{{ scan.risk_score }}/100</td>
+        <td>{{ scan.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+        <td><a href="{{ url_for('scan.scan_detail', scan_id=scan.id) }}">View</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p class="text-dim">No scans yet.</p>
+  {% endif %}
+</div>
+{% endblock %}
