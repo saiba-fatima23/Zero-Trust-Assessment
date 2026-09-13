@@ -9,7 +9,18 @@
 </div>
 
 <div class="card">
-  <h2>Findings ({{ findings|length }})</h2>
+   <h2>
+    <svg class="doodle-icon" viewBox="0 0 80 65" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M40 60 C 30 55, 25 45, 30 37" />
+      <path d="M30 37 C 20 33, 14 21, 18 11" />
+      <path d="M30 37 C 30 25, 34 15, 40 7" />
+      <path d="M30 37 C 40 31, 48 21, 46 11" />
+      <path d="M18 11 L12 7 L20 3 Z" />
+      <path d="M40 7 L34 1 L44 1 Z" />
+      <path d="M46 11 L42 5 L52 5 Z" />
+    </svg>
+    Findings ({{ findings|length }})
+  </h2>
   {% if findings %}
     {% for f in findings %}
       <div class="finding {{ f.severity }}">
