@@ -2,15 +2,31 @@
 {% block title %}Home{% endblock %}
 {% block content %}
 <div class="hero">
-  <h1>ZeroTrust AI Vulnerability Assessment Platform</h1>
-  <p>Run an automated security check on any public website — missing security
-     headers, TLS certificate health, and HTTPS enforcement — and get a
-     plain-English risk report in seconds.</p>
-  {% if current_user.is_authenticated %}
-    <a class="btn" href="{{ url_for('scan.dashboard') }}">Go to Dashboard</a>
-  {% else %}
-    <a class="btn" href="{{ url_for('auth.register') }}">Create Free Account</a>
-    <a class="btn btn-secondary" href="{{ url_for('auth.login') }}">Log In</a>
-  {% endif %}
+  <svg class="hero-doodle dragon-left" viewBox="0 0 220 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M40 240 C 10 200, 30 170, 60 165 C 90 160, 70 130, 95 120 C 120 110, 100 85, 120 70 C 140 55, 130 30, 150 20" />
+    <path d="M60 165 L 55 150 M75 145 L 68 132 M95 120 L 88 106 M110 95 L 102 82 M130 60 L 122 48" />
+    <path d="M150 20 C 158 10, 172 8, 180 16 C 186 22, 182 32, 172 34 C 165 36, 156 30, 150 20 Z" />
+    <path d="M168 10 L 172 0 M178 12 L 186 4" />
+    <circle cx="165" cy="22" r="1.6" fill="currentColor" stroke="none" />
+    <path d="M182 28 L 194 30 M182 28 L 192 22" />
+  </svg>
+  <svg class="hero-doodle eye-right" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M20 3 L34 9 V19 C34 29, 28 35, 20 37 C12 35, 6 29, 6 19 V9 Z" />
+    <path d="M11 19 C14 14, 26 14, 29 19 C26 24, 14 24, 11 19 Z" />
+    <circle cx="20" cy="19" r="2.4" fill="currentColor" stroke="none" />
+  </svg>
+
+  <div class="hero-inner">
+    <h1>ZeroTrust AI Vulnerability Assessment Platform</h1>
+    <p>Run an automated security check on any public website — missing security
+       headers, TLS certificate health, and HTTPS enforcement — and get a
+       plain-English risk report in seconds.</p>
+    {% if current_user.is_authenticated %}
+      <a class="btn" href="{{ url_for('scan.dashboard') }}">Go to Dashboard</a>
+    {% else %}
+      <a class="btn" href="{{ url_for('auth.register') }}">Create Free Account</a>
+      <a class="btn btn-secondary" href="{{ url_for('auth.login') }}">Log In</a>
+    {% endif %}
+  </div>
 </div>
 {% endblock %}
