@@ -33,6 +33,12 @@ def _as_aware_utc(dt):
     return dt
 
 
+def _demo_mode() -> bool:
+    """True when no mail server is configured — skip email verification
+    entirely so the app is usable end-to-end without SMTP credentials."""
+    return not current_app.config.get("MAIL_USERNAME")
+
+
 def _serializer() -> URLSafeTimedSerializer:
     return URLSafeTimedSerializer(current_app.config["SECRET_KEY"])
 
@@ -92,6 +98,19 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.flush()  # assign an id before generating the token
+
+        if _demo_mode():
+            # No SMTP configured — skip the email step entirely so the app
+            # is fully usable for a demo/FYP walkthrough.
+            user.email_verified = True
+            user.is_active = True
+            db.session.commit()
+            login_user(user)
+            flash(
+                "Demo mode: no email server is configured, so your account "
+                "was verified automatically.", "info"
+            )
+            return redirect(url_for("scan.dashboard"))
 
         raw_token = _issue_verification_token(user)
         db.session.commit()
@@ -184,8 +203,15 @@ def login():
             return render_template("auth/login.html", form=form)
 
         if not user.email_verified or not user.is_active:
-            flash("Please verify your email before logging in.", "warning")
-            return render_template("auth/login.html", form=form)
+            if _demo_mode():
+                # Self-heal accounts created before demo mode was enabled,
+                # or if MAIL_USERNAME was removed after registration.
+                user.email_verified = True
+                user.is_active = True
+                db.session.commit()
+            else:
+                flash("Please verify your email before logging in.", "warning")
+                return render_template("auth/login.html", form=form)
 
         login_user(user, remember=form.remember.data)
         next_page = request.args.get("next")
