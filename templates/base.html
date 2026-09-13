@@ -8,7 +8,14 @@
 </head>
 <body>
   <nav class="nav">
-    <a class="brand" href="{{ url_for('home') }}">Zero<span>Trust</span></a>
+    <a class="brand" href="{{ url_for('home') }}">
+      <svg class="doodle-icon" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M20 3 L34 9 V19 C34 29, 28 35, 20 37 C12 35, 6 29, 6 19 V9 Z" />
+        <path d="M11 19 C14 14, 26 14, 29 19 C26 24, 14 24, 11 19 Z" />
+        <circle cx="20" cy="19" r="2.4" fill="currentColor" stroke="none" />
+      </svg>
+      Zero<span>Trust</span>
+    </a>
     <div class="nav-links">
       {% if current_user.is_authenticated %}
         <a href="{{ url_for('scan.dashboard') }}">Dashboard</a>
